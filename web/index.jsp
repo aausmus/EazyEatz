@@ -13,6 +13,5 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/menu.jspf" %>
-        <p></p>
     </body>
 </html>
