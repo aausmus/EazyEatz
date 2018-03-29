@@ -34,28 +34,28 @@
                 $("#burger").click(function () {
                     $("#check").append('<tr>');
                     $("#check").append('<td align="left">Burger</td>');
-                    $("#check").append('<td align="right">$ 2.50</td>');
+                    $("#check").append('<td align="right">2.50</td>');
                     $("#check").append('<td align="right"><button class="btn-sm btn-danger" id="remove">-</button></td>');
                     $("#check").append('</tr>');
                 });
                 $("#cheese_burger").click(function () {
                     $("#check").append('<tr>');
                     $("#check").append('<td align="left">Cheese Burger</td>');
-                    $("#check").append('<td align="right">$ 2.80</td>');
+                    $("#check").append('<td align="right">2.80</td>');
                     $("#check").append('<td align="right"><button class="btn-sm btn-danger" id="remove">-</button></td>');
                     $("#check").append('</tr>');
                 });
                 $("#chicken_tenders").click(function () {
                     $("#check").append('<tr>');
                     $("#check").append('<td align="left">Chicken Tenders</td>');
-                    $("#check").append('<td align="right">$ 3.10</td>');
+                    $("#check").append('<td align="right">3.10</td>');
                     $("#check").append('<td align="right"><button class="btn-sm btn-danger" id="remove">-</button></td>');
                     $("#check").append('</tr>');
                 });
                 $("#fries").click(function () {
                     $("#check").append('<tr>');
                     $("#check").append('<td align="left">Fries</td>');
-                    $("#check").append('<td align="right">$1 .00</td>');
+                    $("#check").append('<td align="right">1.00</td>');
                     $("#check").append('<td align="right"><button class="btn-sm btn-danger" id="remove">-</button></td>');
                     $("#check").append('</tr>');
                 });

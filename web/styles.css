@@ -48,9 +48,10 @@ img {
 .papers
 {
 	position: absolute;
-        width: 35%;
+        width: 40%;
 	padding: 2em;
 	margin: 50px auto;
+        margin-left: 15px;
 }
 
 .papers:before, .papers:after
