@@ -1,0 +1,28 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<header>
+    <link href="https://fonts.googleapis.com/css?family=Russo+One|Indie+Flower" rel="stylesheet"> 
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+     <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+        <div class="navbar-header">
+        <h1 class="logo">Eazy Eatz</h1>
+        </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><img src="Images/burger.png"
+                 alt="burger"></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="orders.jsp">Orders</a></li>
+                <li><a href="#">Inventory</a></li>
+                <li><a href="#">Management</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+        </nav>
+</header>
