@@ -203,4 +203,30 @@ public class UserDao {
 
         return inventory;
     }
+    
+    public String Validate(int pin) {
+    	String t = "/failure.jsp";
+    	try {
+    	PreparedStatement preparedStatement = connection
+    			.prepareStatement("Select EmployeeType_ID from Employee where EmployeePin=?");
+    	preparedStatement.setInt(1, pin);
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+        if(rs.getInt("EmployeeType_ID") == 1) {      
+            t = "/manager.jsp";        
+        
+        } else if(rs.getInt("EmployeeType_ID") == 2) {
+        	t = "/sales.jsp"; 
+        } else if(rs.getInt("EmployeeType_ID") == 3) {
+        	t = "/cook.jsp"; 
+        } else
+        	t = "/failure.jsp";
+            }
+    	}
+        catch(SQLException e){       
+            e.printStackTrace();  
+        }
+		return t;
+    }
+
 }
