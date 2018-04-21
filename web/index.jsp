@@ -13,6 +13,6 @@
 </head>
 <body>
     <%@include file="WEB-INF/jspf/menu.jspf" %>
-    <jsp:forward page="/UserController?action=listUser" />
+   <%-- <jsp:forward page="/UserController?action=listUser" /> --%>
 </body>
 </html>

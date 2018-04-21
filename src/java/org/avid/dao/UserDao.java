@@ -5,6 +5,7 @@
  */
 package org.avid.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,16 +28,19 @@ public class UserDao {
 
     public void addUser(User user) {
         try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into users(firstname,lastname,address,phone,payrate,jobtitle,role) values (?, ?, ?, ?, ?, ?, ? )");
+            
+            
+//            PreparedStatement preparedStatement = connection
+//                    .prepareStatement("insert into eazyeatz.employee values (@lastEmpID, ?, ?, ?, ?, ?);");
             // Parameters start with 1
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getAddress());
-            preparedStatement.setString(4, user.getPhone());
-            preparedStatement.setDouble(5, user.getPayrate());
-            preparedStatement.setString(6, user.getJobtitle());
-            preparedStatement.setString(7, user.getRole());
+            //preparedStatement.setInt(1, user.getUserid());
+            CallableStatement preparedStatement = connection.prepareCall("call eazyeatz.usp_Insert_Employee(?,?,?,?,?);");
+            
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getAddress());
+            preparedStatement.setString(3, user.getPhone());
+            preparedStatement.setInt(4, user.getRoleID());
+            preparedStatement.setInt(5, user.getUserPin());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -47,7 +51,7 @@ public class UserDao {
     public void deleteUser(int userId) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from users where userid=?");
+                    .prepareStatement("delete from eazyeatz.Employee where Employee_ID=?;");
             // Parameters start with 1
             preparedStatement.setInt(1, userId);
             preparedStatement.executeUpdate();
@@ -63,12 +67,12 @@ public class UserDao {
                     .prepareStatement("update users set firstname=?, lastname=?, address=?, phone=?, payrate=?, jobtitle=?, role=?" +
                             "where userid=?");
             // Parameters start with 1
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(2, user.getLastName());
+//            preparedStatement.setString(1, user.getFirstName());
+//            preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getAddress());
             preparedStatement.setString(4, user.getPhone());
-            preparedStatement.setDouble(5, user.getPayrate());
-            preparedStatement.setString(6, user.getJobtitle());
+//            preparedStatement.setDouble(5, user.getPayrate());
+//            preparedStatement.setString(6, user.getJobtitle());
             preparedStatement.setString(7, user.getRole());
             preparedStatement.setInt(8, user.getUserid());
             preparedStatement.executeUpdate();
@@ -83,17 +87,13 @@ public class UserDao {
         List<User> users = new ArrayList<User>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from users");
+            ResultSet rs = statement.executeQuery("select Employee_ID, Employee_Name, Employee_Address, Employee_Phone from eazyeatz.Employee;");
             while (rs.next()) {
                 User user = new User();
-                user.setUserid(rs.getInt("userid"));
-                user.setFirstName(rs.getString("firstname"));
-                user.setLastName(rs.getString("lastname"));
-                user.setAddress(rs.getString("address"));
-                user.setPhone(rs.getString("phone"));
-                user.setPayrate(rs.getDouble("payrate"));
-                user.setJobtitle(rs.getString("jobtitle"));
-                user.setRole(rs.getString("role"));
+                user.setUserid(rs.getInt("Employee_ID"));
+                user.setName(rs.getString("Employee_Name"));
+                user.setAddress(rs.getString("Employee_Address"));
+                user.setPhone(rs.getString("Employee_Phone"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -106,19 +106,17 @@ public class UserDao {
         User user = new User();
         try {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement("select * from users where userid=?");
+                    prepareStatement("select * from eazyeatz.Employee where Employee_ID=?");
             preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
-                user.setUserid(rs.getInt("userid"));
-                user.setFirstName(rs.getString("firstname"));
-                user.setLastName(rs.getString("lastname"));
-                user.setAddress(rs.getString("address"));
-                user.setPhone(rs.getString("phone"));
-                user.setPayrate(rs.getDouble("payrate"));
-                user.setJobtitle(rs.getString("jobtitle"));
-                user.setRole(rs.getString("role"));
+                user.setUserid(rs.getInt("Employee_ID"));
+                user.setName(rs.getString("Employee_Name"));
+                user.setAddress(rs.getString("Employee_Address"));
+                user.setPhone(rs.getString("Employee_Phone"));
+                user.setRoleID(rs.getInt("EmployeeType_ID"));
+                user.setUserPin(rs.getInt("EmployeePin"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -208,13 +206,12 @@ public class UserDao {
     	String t = "/failure.jsp";
     	try {
     	PreparedStatement preparedStatement = connection
-    			.prepareStatement("Select EmployeeType_ID from Employee where EmployeePin=?");
+    			.prepareStatement("Select EmployeeType_ID from EazyEatz.Employee where EmployeePin=?;");
     	preparedStatement.setInt(1, pin);
         ResultSet rs = preparedStatement.executeQuery();
         while(rs.next()) {
         if(rs.getInt("EmployeeType_ID") == 1) {      
-            t = "/manager.jsp";        
-        
+            t = "/manager.jsp";                
         } else if(rs.getInt("EmployeeType_ID") == 2) {
         	t = "/sales.jsp"; 
         } else if(rs.getInt("EmployeeType_ID") == 3) {

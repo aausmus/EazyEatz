@@ -19,13 +19,9 @@
         <thead>
             <tr>
                 <th>User Id</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
                 <th>Address</th>
                 <th>Phone Number</th>
-                <th>Pay Rate</th>
-                <th>Job Title</th>
-                <th>Role</th>
                 <th colspan=2>Action</th>
             </tr>
         </thead>
@@ -33,13 +29,9 @@
             <c:forEach items="${users}" var="user">
                 <tr>
                     <td><c:out value="${user.userid}" /></td>
-                    <td><c:out value="${user.firstName}" /></td>
-                    <td><c:out value="${user.lastName}" /></td>
+                    <td><c:out value="${user.name}" /></td>
                     <td><c:out value="${user.address}" /></td>
                     <td><c:out value="${user.phone}" /></td>
-                    <td><c:out value="${user.payrate}" /></td>
-                    <td><c:out value="${user.jobtitle}" /></td>
-                    <td><c:out value="${user.role}" /></td>
                     <td><a href="UserController?action=edit&userId=<c:out value="${user.userid}"/>">Update</a></td>
                     <td><a href="UserController?action=delete&userId=<c:out value="${user.userid}"/>">Delete</a></td>
                 </tr>

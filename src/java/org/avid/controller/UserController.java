@@ -48,14 +48,10 @@ public class UserController extends HttpServlet {
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
-        user.setFirstName(request.getParameter("firstName"));
-        user.setLastName(request.getParameter("lastName"));
+        user.setName(request.getParameter("name"));
         user.setAddress(request.getParameter("address"));
         user.setPhone(request.getParameter("phone"));
-        Double payrate = new Double(request.getParameter("payrate"));
-        user.setPayrate(payrate);
-        user.setJobtitle(request.getParameter("jobtitle"));
-        user.setRole(request.getParameter("role"));
+        //user.setTypeId(request.getParameter("typeId"));
         String userid = request.getParameter("userid");
         if(userid == null || userid.isEmpty())
         {
