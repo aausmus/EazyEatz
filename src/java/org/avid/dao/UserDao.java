@@ -18,6 +18,8 @@ import org.avid.model.Inventory;
 import org.avid.model.MenuItem;
 import org.avid.model.User;
 import org.avid.util.DbUtil;
+import org.joda.time.DateTime;
+
 
 public class UserDao {
 
@@ -299,7 +301,7 @@ public class UserDao {
                     .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setInt(1, userID);
-            preparedStatement.setString(2, DateTime.getDateTime());
+            //preparedStatement.setString(2, DateTime.getDateTime());
             preparedStatement.setInt(3, 1);
             preparedStatement.executeUpdate();
             
@@ -313,7 +315,7 @@ public class UserDao {
                     .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setInt(1, userID);
-            preparedStatement.setString(2, DateTime.getDateTime());
+            //preparedStatement.setString(2, DateTime.getDateTime());
             preparedStatement.setInt(3, 2);
             preparedStatement.executeUpdate();
             
@@ -327,7 +329,7 @@ public class UserDao {
                     .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setInt(1, userID);
-            preparedStatement.setString(2, DateTime.getDateTime());
+            //preparedStatement.setString(2, DateTime.getDateTime());
             preparedStatement.setInt(3, 3);
             preparedStatement.executeUpdate();
             
@@ -341,7 +343,7 @@ public class UserDao {
                     .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setInt(1, userID);
-            preparedStatement.setString(2, DateTime.getDateTime());
+            //preparedStatement.setString(2, DateTime.getDateTime());
             preparedStatement.setInt(3, 4);
             preparedStatement.executeUpdate();
             

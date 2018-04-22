@@ -34,4 +34,14 @@
         <servlet-name>MenuController</servlet-name>
         <url-pattern>/MenuController</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <description/>
+        <display-name>ClockInController</display-name>
+        <servlet-name>ClockInController</servlet-name>
+        <servlet-class>org.avid.controller.ClockInController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClockInController</servlet-name>
+        <url-pattern>/ClockInController</url-pattern>
+    </servlet-mapping>
 </web-app>
