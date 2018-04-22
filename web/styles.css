@@ -96,5 +96,37 @@ img {
     font-size: 1.4em;
 }
 
+.pin {
+    text-align: center;
+    font-size: 30px;
+    
+}
+
+.clockin {
+    text-align: center;
+    font-size: 30px;
+    
+}
+
+.clockin-text {
+    color: green;
+}
+
+.salesreport {
+    text-align: center;
+    font-size: 30px; 
+    
+}
+
+.salesreport-text {
+    color: green;
+   
+}
+
+
+
+
+
+
 
 
