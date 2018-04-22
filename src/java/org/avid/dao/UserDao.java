@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.avid.model.Inventory;
+import org.avid.model.MenuItem;
 import org.avid.model.User;
 import org.avid.util.DbUtil;
 
@@ -28,8 +29,7 @@ public class UserDao {
 
     public void addUser(User user) {
         try {
-            
-            
+        
 //            PreparedStatement preparedStatement = connection
 //                    .prepareStatement("insert into eazyeatz.employee values (@lastEmpID, ?, ?, ?, ?, ?);");
             // Parameters start with 1
@@ -224,6 +224,48 @@ public class UserDao {
             e.printStackTrace();  
         }
 		return t;
+    }
+    
+    public List<MenuItem> getAllMenuItems() {
+        List<MenuItem> menuItems = new ArrayList<MenuItem>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("select MenuItem_ID, MenuItem_Name, MenuItem_Cost from eazyeatz.MenuItem;");
+            while (rs.next()) {
+                MenuItem menuItem = new MenuItem();
+                menuItem.setMenuItemId(rs.getInt("MenuItem_ID"));
+                menuItem.setMenuItemName(rs.getString("MenuItem_Name"));
+                menuItem.setMenuItemPrice(rs.getDouble("MenuItem_Cost"));
+                menuItems.add(menuItem);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return menuItems;
+    }
+    
+    public MenuItem getMenuItem(String name) {
+        MenuItem menuItem = new MenuItem();
+        try {
+            PreparedStatement preparedStatement = connection.
+                    prepareStatement("select MenuItem_ID, MenuItem_Name, "
+                            + "MenuItem_Cost from eazyeatz.MenuItem where MenuItem_Name= ?;");
+            preparedStatement.setString(1, name);
+            ResultSet rs = preparedStatement.executeQuery();
+         
+            if (rs.next()) {
+                menuItem.setMenuItemId(rs.getInt("MenuItem_ID"));
+                menuItem.setMenuItemName(rs.getString("MenuItem_Name"));
+                menuItem.setMenuItemPrice(rs.getDouble("MenuItem_Cost"));
+            }
+                    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return menuItem;
+        
     }
 
 }

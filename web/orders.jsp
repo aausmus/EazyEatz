@@ -4,8 +4,12 @@
     Author     : Andrew Ausmus
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,55 +23,25 @@
         <div class="papers">
             <h1>Guest Check</h1>
             <table id="check" width="100%">
-                <form id="check-fm">
-                    
-                    
-                </form>
+                <c:forEach items="${orderItems}" var="orderItem">
+                    <tr>
+                        <td><c:out value="${orderItem.menuItemName}" /></td>
+                        <td><c:out value="${orderItem.menuItemPrice}" /></td>
+                    </tr>
+                </c:forEach>
+                
+               
             </table>
         </div>
-        <table align="right" width="55%">
-        <tr>
-            <td><button class="btn-lg btn-default" id="burger">Burger</button></td>
-            <td><button class="btn-lg btn-default" id="cheese_burger">Cheese Burger</button></td>
-            <td><button class="btn-lg btn-default" id="chicken_tenders">Chicken Tenders</button></td>
-            <td><button class="btn-lg btn-default" id="fries">Fries</button></td>
-        </tr>
-        </table>
         
-            <script>
-                $(document).ready(function(){
-                    $("#burger").click(function () {
-                        $("#check").append('<tr>');
-                        $("#check").append('<td align="left">Burger</td>');
-                        $("#check").append('<td align="right">2.50</td>');
-                        $("#check").append('<td align="right"><button class="btn-sm btn-danger" id="rm-row">-</button></td>');
-                        $("#check").append('</tr>');
-                    });
-                    $("#cheese_burger").click(function () {
-                        $("#check").append('<tr>');
-                        $("#check").append('<td align="left">Cheese Burger</td>');
-                        $("#check").append('<td align="right">2.80</td>');
-                        $("#check").append('<td align="right"><button class="btn-sm btn-danger" id="rm-row">-</button></td>');
-                        $("#check").append('</tr>');
-                    });
-                    $("#chicken_tenders").click(function () {
-                        $("#check").append('<tr>');
-                        $("#check").append('<td align="left">Chicken Tenders</td>');
-                        $("#check").append('<td align="right">3.10</td>');
-                        $("#check").append('<td align="right"><button class="btn-sm btn-danger" id="rm-row">-</button></td>');
-                        $("#check").append('</tr>');
-                    });
-                    $("#fries").click(function () {
-                        $("#check").append('<tr>');
-                        $("#check").append('<td align="left">Fries</td>');
-                        $("#check").append('<td align="right">1.00</td>');
-                        $("#check").append('<td align="right"><button class="btn-sm btn-danger" id="rm-row">-</button></td>');
-                        $("#check").append('</tr>');
-                    });
-                    $("#check").on('click', '#rm-row', function () {
-                        $(this).closest('tr').remove();
-                    });
-                });
-            </script>
+        <div align="right" width="55%">
+        
+        <c:forEach items="${menuItems}" var="menuItem">
+            <form action="MenuController?action=orders" method="post"> 
+                <input type="hidden" name="menuItem" value="${menuItem.menuItemName}" >
+                <input type="submit" class="btn-lg btn-default" value="<c:out value="${menuItem.menuItemName}" />" >
+            </form>
+        </c:forEach>
+        </div>
     </body>
 </html>
