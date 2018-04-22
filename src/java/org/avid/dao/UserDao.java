@@ -267,5 +267,87 @@ public class UserDao {
         return menuItem;
         
     }
+    
+    public String clockStatus(int userID) {
+    	String t = "Clocked Out";
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("select EmployeeTimeLog_Type from EmployeeTimeLog where Employee_ID=? order by EmployeeTimeLog_LogTime desc limit 1");
+            // Parameters start with 1
+            preparedStatement.setInt(1, userID);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+            if(rs.getInt("EmployeeTimeLog_Type") == 1)         
+                t = "Clocked In";        
+            else if(rs.getInt("EmployeeTimeLog_Type") == 2) 
+            	t = "Clocked Out"; 
+            else if(rs.getInt("EmployeeTimeLog_Type") == 3) 
+            	t = "On Break"; 
+            else if(rs.getInt("EmployeeTimeLog_Type") == 4) 
+            	t = "Clocked In";
+            else 
+            	t = "Clocked Out";
+       }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return t;
+    }
+    public void clockIn(int userID) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
+            // Parameters start with 1
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setString(2, DateTime.getDateTime());
+            preparedStatement.setInt(3, 1);
+            preparedStatement.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void clockOut(int userID) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
+            // Parameters start with 1
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setString(2, DateTime.getDateTime());
+            preparedStatement.setInt(3, 2);
+            preparedStatement.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void startBreak(int userID) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
+            // Parameters start with 1
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setString(2, DateTime.getDateTime());
+            preparedStatement.setInt(3, 3);
+            preparedStatement.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void endBreak(int userID) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
+            // Parameters start with 1
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setString(2, DateTime.getDateTime());
+            preparedStatement.setInt(3, 4);
+            preparedStatement.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
