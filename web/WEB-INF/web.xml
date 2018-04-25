@@ -44,4 +44,14 @@
         <servlet-name>ClockInController</servlet-name>
         <url-pattern>/ClockInController</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <description/>
+        <display-name>ManageEmployeeController</display-name>
+        <servlet-name>ManageEmployeeController</servlet-name>
+        <servlet-class>org.avid.controller.ManageEmployeeController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageEmployeeController</servlet-name>
+        <url-pattern>/ManageEmployeeController</url-pattern>
+    </servlet-mapping>
 </web-app>

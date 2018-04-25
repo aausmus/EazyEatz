@@ -123,7 +123,7 @@
                   <tr>
                     <td>
                       <!--- the target url needs to be updated here to the appropriate pages --->  
-                      <button onclick="location.href='http://localhost:8080/nbproject/employees.jsp'" type="button">
+                      <button onclick="location.href='ManageEmployeeController?action=manageemployeehome'" type="button">
                             Manage Employees</button>
                     </td>
                     <td>
