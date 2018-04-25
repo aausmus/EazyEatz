@@ -29,29 +29,64 @@
                         <td><c:out value="${orderItem.menuItemPrice}" /></td>
                     </tr>
                 </c:forEach>
-                    <tr>
+    
+                    <tr class="ticket-bottom">
                         <td>Subtotal</td><td><c:out value="${subtotal}" /></td>
                     </tr>
-                    <tr>
+                    <tr class="ticket-bottom">
                         <td>Tax</td><td><c:out value="${tax}" /></td>
                     </tr>
-                    <tr>    
+                    <tr class="ticket-bottom">    
                         <td>Total</td><td><c:out value="${total}" /></td>
                     </tr>
+  
                     
                 
                
             </table>
         </div>
         
-        <div class="btn-group-vertical"> align="right" width="55%">
-        
-        <c:forEach items="${menuItems}" var="menuItem">
+        <table align="right" width="55%">
+        <tr>
+        <c:forEach items="${menuItems}" var="menuItem" begin="0" end="3">
             <form action="MenuController?action=orders" method="post">
+            
                 <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
-                <input type="submit" class="btn-md btn-primary" value="<c:out value="${menuItem.menuItemName}" />" >
+                <td><input type="submit" class="btn-lg btn-primary" value="<c:out value="${menuItem.menuItemName}" />" ></td>
+            
             </form>
         </c:forEach>
-        </div>
+        </tr>
+        <tr>
+        <c:forEach items="${menuItems}" var="menuItem" begin="4" end="7">
+            <form action="MenuController?action=orders" method="post">
+            
+                <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
+                <td><input type="submit" class="btn-lg btn-primary" value="<c:out value="${menuItem.menuItemName}" />" ></td>
+            
+            </form>
+        </c:forEach>
+        </tr>
+        <tr>
+        <c:forEach items="${menuItems}" var="menuItem" begin="8" end="11">
+            <form action="MenuController?action=orders" method="post">
+            
+                <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
+                <td><input type="submit" class="btn-lg btn-primary" value="<c:out value="${menuItem.menuItemName}" />" ></td>
+            
+            </form>
+        </c:forEach>
+        </tr>
+        <tr>
+        <c:forEach items="${menuItems}" var="menuItem" begin="12" end="15">
+            <form action="MenuController?action=orders" method="post">
+            
+                <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
+                <td><input type="submit" class="btn-lg btn-primary" value="<c:out value="${menuItem.menuItemName}" />" ></td>
+            
+            </form>
+        </c:forEach>
+        </tr>
+        </table>
     </body>
 </html>
