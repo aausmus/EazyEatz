@@ -13,12 +13,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.avid.model.DateTime;
 
 import org.avid.model.Inventory;
 import org.avid.model.MenuItem;
 import org.avid.model.User;
 import org.avid.util.DbUtil;
-import org.joda.time.DateTime;
 
 
 public class UserDao {
@@ -247,16 +247,16 @@ public class UserDao {
         return menuItems;
     }
     
-    public MenuItem getMenuItem(String name) {
+    public MenuItem getMenuItembyId(int id) {
         MenuItem menuItem = new MenuItem();
         try {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement("select MenuItem_ID, MenuItem_Name, "
-                            + "MenuItem_Cost from eazyeatz.MenuItem where MenuItem_Name= ?;");
-            preparedStatement.setString(1, name);
+                    prepareStatement("Select MenuItem_ID, MenuItem_Name, "
+                            + "MenuItem_Cost from eazyeatz.MenuItem where MenuItem_ID=?;");
+            preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
          
-            if (rs.next()) {
+            while (rs.next()) {
                 menuItem.setMenuItemId(rs.getInt("MenuItem_ID"));
                 menuItem.setMenuItemName(rs.getString("MenuItem_Name"));
                 menuItem.setMenuItemPrice(rs.getDouble("MenuItem_Cost"));
@@ -301,7 +301,7 @@ public class UserDao {
                     .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setInt(1, userID);
-            //preparedStatement.setString(2, DateTime.getDateTime());
+            preparedStatement.setString(2, DateTime.getDateTime());
             preparedStatement.setInt(3, 1);
             preparedStatement.executeUpdate();
             
@@ -315,7 +315,7 @@ public class UserDao {
                     .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setInt(1, userID);
-            //preparedStatement.setString(2, DateTime.getDateTime());
+            preparedStatement.setString(2, DateTime.getDateTime());
             preparedStatement.setInt(3, 2);
             preparedStatement.executeUpdate();
             
@@ -329,7 +329,7 @@ public class UserDao {
                     .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setInt(1, userID);
-            //preparedStatement.setString(2, DateTime.getDateTime());
+            preparedStatement.setString(2, DateTime.getDateTime());
             preparedStatement.setInt(3, 3);
             preparedStatement.executeUpdate();
             
@@ -343,7 +343,7 @@ public class UserDao {
                     .prepareStatement("insert into EmployeeTimeLog(Employee_ID,EmployeeTimeLog_LogTime,EmployeeTimeLog_Type) values (?, ?, ? )");
             // Parameters start with 1
             preparedStatement.setInt(1, userID);
-            //preparedStatement.setString(2, DateTime.getDateTime());
+            preparedStatement.setString(2, DateTime.getDateTime());
             preparedStatement.setInt(3, 4);
             preparedStatement.executeUpdate();
             

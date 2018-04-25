@@ -16,13 +16,13 @@ public class Order {
     private ArrayList<MenuItem> orderItems;
     private Double totalPrice;
     
-    public void Order() {
-       this.orderItems = new ArrayList<>();
+    public Order() {
+       orderItems = new ArrayList<>();
        this.totalPrice = 0.00;
     }
     
     public void addToOrder(MenuItem menuItem) {
-        this.orderItems.add(menuItem);
+        orderItems.add(menuItem);
         this.totalPrice += menuItem.getMenuItemPrice();
     }
     

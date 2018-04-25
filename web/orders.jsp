@@ -29,17 +29,27 @@
                         <td><c:out value="${orderItem.menuItemPrice}" /></td>
                     </tr>
                 </c:forEach>
+                    <tr>
+                        <td>Subtotal</td><td><c:out value="${subtotal}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td><td><c:out value="${tax}" /></td>
+                    </tr>
+                    <tr>    
+                        <td>Total</td><td><c:out value="${total}" /></td>
+                    </tr>
+                    
                 
                
             </table>
         </div>
         
-        <div align="right" width="55%">
+        <div class="btn-group-vertical"> align="right" width="55%">
         
         <c:forEach items="${menuItems}" var="menuItem">
-            <form action="MenuController?action=orders" method="post"> 
-                <input type="hidden" name="menuItem" value="${menuItem.menuItemName}" >
-                <input type="submit" class="btn-lg btn-default" value="<c:out value="${menuItem.menuItemName}" />" >
+            <form action="MenuController?action=orders" method="post">
+                <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
+                <input type="submit" class="btn-md btn-primary" value="<c:out value="${menuItem.menuItemName}" />" >
             </form>
         </c:forEach>
         </div>
