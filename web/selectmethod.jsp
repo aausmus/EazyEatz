@@ -13,9 +13,12 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/menu.jspf" %>
-        <div class="btn-group">
-            <button class="btn-primary btn-lg"><a href="MenuController?action=cash">Cash</a></button>
-            <button class="btn-primary btn-lg"><a href="MenuController?action=credit">Credit</a></button>
-        </div>
+        
+        <table align="center" width="100%">
+            <tr>
+                <td><a href="POSController?action=cash"><button class="btn-primary btn-lg">Cash</button></a></td>
+                <td><a href="POSController?action=credit"><button class="btn-primary btn-lg">Credit</button></a></td>
+            </tr>
+        </table>
     </body>
 </html>

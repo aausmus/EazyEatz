@@ -40,8 +40,8 @@
                         <td>Total</td><td><c:out value="${total}" /></td>
                     </tr>
                     <tr>
-                         <td><button id="pos-buttons" class="btn-success btn-md"><a href="MenuController?action=selectmethod">Checkout</a></button></td>
-                         <td><button id="pos-buttons" class="btn-danger btn-md"><a href="MenuController?action=orders">Reset</a></button></td>
+                         <td><a href="POSController?action=selectmethod"><button id="pos-buttons" class="btn-success btn-md">Checkout</button></a></td>
+                         <td><a href="POSController?action=orders"><button id="pos-buttons" class="btn-danger btn-md">Reset</button></a></td>
                     </tr>
             </table>
         </div>
@@ -49,7 +49,7 @@
         <table align="right" width="55%">
         <tr>
         <c:forEach items="${menuItems}" var="menuItem" begin="0" end="3">
-            <form action="MenuController?action=orders" method="post">
+            <form action="POSController?action=orders" method="post">
             
                 <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
                 <td><input type="submit" class="btn-lg btn-primary" value="<c:out value="${menuItem.menuItemName}" />" ></td>
@@ -59,7 +59,7 @@
         </tr>
         <tr>
         <c:forEach items="${menuItems}" var="menuItem" begin="4" end="7">
-            <form action="MenuController?action=orders" method="post">
+            <form action="POSController?action=orders" method="post">
             
                 <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
                 <td><input type="submit" class="btn-lg btn-primary" value="<c:out value="${menuItem.menuItemName}" />" ></td>
@@ -69,7 +69,7 @@
         </tr>
         <tr>
         <c:forEach items="${menuItems}" var="menuItem" begin="8" end="11">
-            <form action="MenuController?action=orders" method="post">
+            <form action="POSController?action=orders" method="post">
             
                 <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
                 <td><input type="submit" class="btn-lg btn-primary" value="<c:out value="${menuItem.menuItemName}" />" ></td>
@@ -79,7 +79,7 @@
         </tr>
         <tr>
         <c:forEach items="${menuItems}" var="menuItem" begin="12" end="15">
-            <form action="MenuController?action=orders" method="post">
+            <form action="POSController?action=orders" method="post">
             
                 <input type="hidden" name="menuItem" value="${menuItem.menuItemId}" >
                 <td><input type="submit" class="btn-lg btn-primary" value="<c:out value="${menuItem.menuItemName}" />" ></td>

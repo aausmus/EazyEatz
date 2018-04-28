@@ -7,6 +7,7 @@ package org.avid.controller;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Random;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,14 +25,17 @@ public class POSController extends HttpServlet {
     private static String POS = "/orders.jsp";
     private static String selectMethod = "/selectmethod.jsp";
     private static String cash = "/cash.jsp";
+    private static String credit = "/credit.jsp";
     private UserDao dao;
     private Order order;
     private DecimalFormat df;
+    private Random rand;
 
     public POSController() {
         super();
         dao = new UserDao();
         df = new DecimalFormat("#.##");
+        rand = new Random();
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,6 +54,10 @@ public class POSController extends HttpServlet {
             forward = selectMethod;
         } else if (action.equalsIgnoreCase("cash")) {
             forward = cash;
+            double total = (order.getTotalPrice() + (order.getTotalPrice() * .06));
+            request.setAttribute("total", df.format(total));
+        } else if (action.equalsIgnoreCase("credit")) {
+            forward = credit;
             double total = (order.getTotalPrice() + (order.getTotalPrice() * .06));
             request.setAttribute("total", df.format(total));
         }
@@ -80,8 +88,18 @@ public class POSController extends HttpServlet {
             request.setAttribute("total", df.format(total));
             double cashRecieved = Double.parseDouble(request.getParameter("cashRecieved"));
             double change = cashRecieved - total;
-            request.setAttribute("total", cashRecieved);
-            request.setAttribute("total", df.format(change));
+            request.setAttribute("cashRecieved", cashRecieved);
+            request.setAttribute("change", df.format(change));
+        }  else if (action.equalsIgnoreCase("credit")) {
+            forward = credit;
+            double total = (order.getTotalPrice() + (order.getTotalPrice() * .06));
+            request.setAttribute("total", df.format(total));
+            int paySuccess = rand.nextInt(100) + 1;
+            if (paySuccess >= 11) {
+                request.setAttribute("payment","Approved");
+            } else {
+                request.setAttribute("payment","Declined");
+            }
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);

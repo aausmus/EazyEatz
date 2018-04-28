@@ -26,13 +26,13 @@
     </servlet-mapping>
     <servlet>
         <description/>
-        <display-name>MenuController</display-name>
-        <servlet-name>MenuController</servlet-name>
+        <display-name>POSController</display-name>
+        <servlet-name>POSController</servlet-name>
         <servlet-class>org.avid.controller.POSController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MenuController</servlet-name>
-        <url-pattern>/MenuController</url-pattern>
+        <servlet-name>POSController</servlet-name>
+        <url-pattern>/POSController</url-pattern>
     </servlet-mapping>
     <servlet>
         <description/>
