@@ -39,10 +39,10 @@
                     <tr class="ticket-bottom">    
                         <td>Total</td><td><c:out value="${total}" /></td>
                     </tr>
-  
-                    
-                
-               
+                    <tr>
+                         <td><button id="pos-buttons" class="btn-success btn-md"><a href="MenuController?action=selectmethod">Checkout</a></button></td>
+                         <td><button id="pos-buttons" class="btn-danger btn-md"><a href="MenuController?action=orders">Reset</a></button></td>
+                    </tr>
             </table>
         </div>
         

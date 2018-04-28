@@ -91,7 +91,7 @@ img {
 }
 
 .papers table {
-    font-family: 'Indie Flower', cursive;
+    font-family: monospace;
     font-weight: bold;
     font-size: 1.4em;
 }
@@ -125,10 +125,12 @@ img {
 
 .ticket-bottom {
     color: green;
-    font-family: monospace;
     font-size: 14px;
 }
 
+#pos-buttons {
+    color: white;
+}
 
 
 
