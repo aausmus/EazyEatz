@@ -29,54 +29,67 @@ public class UserDao {
         connection = DbUtil.getConnection();
     }
 
+   //Method to add a new Employee to the database
     public void addUser(User user) {
         try {
-        
-//            PreparedStatement preparedStatement = connection
-//                    .prepareStatement("insert into eazyeatz.employee values (@lastEmpID, ?, ?, ?, ?, ?);");
-            // Parameters start with 1
-            //preparedStatement.setInt(1, user.getUserid());
-            CallableStatement preparedStatement = connection.prepareCall("call eazyeatz.usp_Insert_Employee(?,?,?,?,?);");
             
+            
+            //First, get a valid connection to the database and prepare the insert statement
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("insert into eazyeatz.employee (Employee_Name, Employee_Address, Employee_Phone, EmployeeType_ID, EmployeePin) values (?, ?, ?, ?, ?);");
+            
+            //Fill in the variables for the insert statement defined above
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getAddress());
             preparedStatement.setString(3, user.getPhone());
             preparedStatement.setInt(4, user.getRoleID());
             preparedStatement.setInt(5, user.getUserPin());
+            
+            //Finally, execute the statement against the database
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
+    
+    //Method to delete Employees in the database
     public void deleteUser(int userId) {
         try {
+            
+            //Get a valid connection to the database and prepare the delete statement
             PreparedStatement preparedStatement = connection
                     .prepareStatement("delete from eazyeatz.Employee where Employee_ID=?;");
-            // Parameters start with 1
+            
+            //Define the variables used in the above SQL statement
             preparedStatement.setInt(1, userId);
+            
+            //Finally, execute the delete statement against the database
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
+    
+    //Method to update Employees in the database
     public void updateUser(User user) {
         try {
+            
+            //Get a valid connection to the database and prepare the update SQL statement
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update users set firstname=?, lastname=?, address=?, phone=?, payrate=?, jobtitle=?, role=?" +
-                            "where userid=?");
-            // Parameters start with 1
-//            preparedStatement.setString(1, user.getFirstName());
-//            preparedStatement.setString(2, user.getLastName());
-            preparedStatement.setString(3, user.getAddress());
-            preparedStatement.setString(4, user.getPhone());
-//            preparedStatement.setDouble(5, user.getPayrate());
-//            preparedStatement.setString(6, user.getJobtitle());
-            preparedStatement.setString(7, user.getRole());
-            preparedStatement.setInt(8, user.getUserid());
+                    .prepareStatement("update eazyeatz.Employee set Employee_Name=?, Employee_Address=?, Employee_Phone=?, EmployeeType_ID=?, EmployeePin=? " +
+                            "where Employee_ID=?");
+            
+            //Define the variables used in the above SQL Statement
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getAddress());
+            preparedStatement.setString(3, user.getPhone());
+            preparedStatement.setInt(4, user.getRoleID());
+            preparedStatement.setInt(5, user.getUserPin());
+            preparedStatement.setInt(6, user.getUserid());
+            
+            //Finally, execute the update statement against the database
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -84,12 +97,17 @@ public class UserDao {
         }
     }
 
-
+    //Method to return all the Employees in the database
     public List<User> getAllUsers() {
+        //Create our List to return to the caller
         List<User> users = new ArrayList<User>();
+        
         try {
+            //Get a valid connection to the database, prepare, and run the select SQL statement
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("select Employee_ID, Employee_Name, Employee_Address, Employee_Phone from eazyeatz.Employee;");
+            
+            //While there are users to return in the ResultSet variable, add each of them to a new User ojbect and add that object to our List
             while (rs.next()) {
                 User user = new User();
                 user.setUserid(rs.getInt("Employee_ID"));
@@ -104,14 +122,20 @@ public class UserDao {
 
         return users;
     }
+    
+    //Method to return a specific Employee from the database based on a provided EmployeePin
     public User getUserById(int userId) {
+        //Create a variable to hold the user coming back from the database
         User user = new User();
         try {
+            
+            //Prepare and run the select SQL statement from the database
             PreparedStatement preparedStatement = connection.
                     prepareStatement("select * from eazyeatz.Employee where Employee_ID=?");
             preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
 
+            //Grab the fields coming back from the database and add them to our created User object
             if (rs.next()) {
                 user.setUserid(rs.getInt("Employee_ID"));
                 user.setName(rs.getString("Employee_Name"));
@@ -126,6 +150,7 @@ public class UserDao {
 
         return user;
     }
+    
     public void addInventory(InventoryItem item) {
         try {
             PreparedStatement preparedStatement = connection

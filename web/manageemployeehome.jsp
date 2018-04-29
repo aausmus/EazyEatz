@@ -14,6 +14,8 @@
     </head>
     <body>
         <%@include file="WEB-INF/jspf/menu.jspf" %>
+        
+        <!--Header section to set the nav bar and the stylistic feel of the website-->
         <header>
         <nav class="navbar navbar-default manager-navbar">
             <div class="container-fluid">
@@ -35,6 +37,7 @@
         </div>
         <div align="center">
             <div style="width:30%">
+                <!--This form section will either send an edit Employee message or add Employee message back to the serverside code-->
                 <form id="editForm" method="POST" action="ManageEmployeeController?action=edituser">
                     <div class="btn-toolbar" style="float:left">
                         <a href="ManageEmployeeController?action=addemployee"><button style="width:100%" style="height:30px" type="button">Add Employee</button></a>
@@ -54,6 +57,8 @@
                 </form>
             </div>
         </div>
+        
+        <!--This section handles the delete Emplopyee portion, and using the javascript functions below, will turn item's visibility off and on-->
         <div align="center">
             <label id="deleteLabel" style="visibility: hidden">Are you SURE you want to delete the selected Employee?</label>
             <form id="deleteForm"   method="POST" action="ManageEmployeeController?action=deleteuser">
@@ -64,6 +69,7 @@
             </form>
         </div>
         <script>
+            <!--Javascript functions for retrieving values from the requestScope and turning item visibility on and off-->
             function retrieveUserID() {
                 var x  = document.getElementById("mySelect").value;
                 document.getElementById("useridInput").value = x;
@@ -88,4 +94,3 @@
         </script>
     </body>
 </html>
-

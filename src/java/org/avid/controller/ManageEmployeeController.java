@@ -24,8 +24,11 @@ public class ManageEmployeeController extends HttpServlet {
         dao = new UserDao();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //The value stored in the variable action will determine which page jsp page the control will forward to
         String action = request.getParameter("action");
         String forward="";
+        
+        //Pathways to get to the manageemployeehome.jsp page and the addemployee.jsp page
         if(action.equalsIgnoreCase("manageemployeehome")) {
             forward = "/manageemployeehome.jsp"; 
             request.setAttribute("users", dao.getAllUsers());
@@ -37,18 +40,44 @@ public class ManageEmployeeController extends HttpServlet {
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        /* The following code is for inserting, updating, and deleting users.  
+           All paths will access the UserDao.java class to perform the operations
+           that actually modify the database.
+        */
+        //Deletion pathway
         if (request.getParameter("action").equalsIgnoreCase("deleteuser")) {
             int userID = parseInt(request.getParameter("userid"));
             dao.deleteUser(userID);
             request.setAttribute("users", dao.getAllUsers());
             RequestDispatcher view = request.getRequestDispatcher("/manageemployeehome.jsp");
             view.forward(request, response);
-        } else if (request.getParameter("action").equalsIgnoreCase("edituser")) {
+        } 
+        //This pathway actually grabs data from the database to display on the edit page when the user clicks the edit button
+        else if (request.getParameter("action").equalsIgnoreCase("edituser")) {
             int userID = parseInt(request.getParameter("edituserid"));
             request.setAttribute("user",dao.getUserById(userID));
+            request.setAttribute("editUser", "true");
             RequestDispatcher view = request.getRequestDispatcher("/manageemployee.jsp");
             view.forward(request, response);         
-        } else {
+        } 
+        //Edit pathway; this is pathway where the database actually gets modified for edits 
+        else if (request.getParameter("action").equalsIgnoreCase("submitedituser")) {
+            User editUser = new User();
+            editUser.setUserid(parseInt(request.getParameter("userID")));
+            editUser.setName(request.getParameter("nameEntry"));
+            editUser.setAddress(request.getParameter("addressEntry"));
+            editUser.setPhone(request.getParameter("phoneEntry"));
+            editUser.setRoleID(parseInt(request.getParameter("accessLevel")));
+            editUser.setUserPin(parseInt(request.getParameter("pinEntry")));
+            
+            dao.updateUser(editUser);
+            
+            request.setAttribute("users", dao.getAllUsers());
+            RequestDispatcher view = request.getRequestDispatcher("/manageemployeehome.jsp");
+            view.forward(request, response);
+        } 
+        //Insert pathway
+        else {
         User newUser = new User();
         newUser.setName(request.getParameter("nameEntry"));
         newUser.setAddress(request.getParameter("addressEntry"));
@@ -65,4 +94,3 @@ public class ManageEmployeeController extends HttpServlet {
 
     }   
 }
-
