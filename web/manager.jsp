@@ -132,7 +132,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <button onclick="location.href='http://localhost:8080/nbproject/sales.jsp'" type="button">Sales Functions</button>
+                      <button onclick="location.href='salesreport.jsp'" type="button">Sales Functions</button>
                     </td>
                     <td>
                       <button onclick="location.href='http://localhost:8080/nbproject/menu.jsp'" type="button">Manage Menu</button>

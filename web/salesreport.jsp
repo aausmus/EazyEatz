@@ -35,9 +35,12 @@
             </form>
             </br></br></br>
             <div class="report">
+                <sql:setDataSource var = "eazyeatz" driver = "com.mysql.jdbc.Driver"
+                                   url = "jdbc:mysql://localhost:3306/EazyEatz"
+                                   user = "admin"  password = "admin"/>
                 <c:choose>
                     <c:when test="${param.report == 'Weekly'}"> 
-                        <sql:query var="week" dataSource="jdbc/capstone">
+                        <sql:query var="week" dataSource="${eazyeatz}">
                             SELECT * FROM EazyEatz.OrderLog WHERE `OrderLog_Timestamp` BETWEEN DATE_SUB( CURDATE( ) ,INTERVAL 10 DAY ) AND CURDATE( )
                         </sql:query>
                         <table border="1" align="center">
@@ -58,7 +61,7 @@
                         </table>
                     </c:when>
                     <c:when test="${param.report == 'Monthly'}"> 
-                        <sql:query var="week" dataSource="jdbc/capstone">
+                        <sql:query var="week" dataSource="${eazyeatz}">
 
                             SELECT * FROM EazyEatz.OrderLog WHERE `OrderLog_Timestamp` >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
                         </sql:query>
@@ -80,7 +83,7 @@
                         </table>
                     </c:when> 
                     <c:when test="${param.report == 'Quarterly'}"> 
-                        <sql:query var="week" dataSource="jdbc/capstone">
+                        <sql:query var="week" dataSource="${eazyeatz}">
 
                             SELECT * FROM EazyEatz.OrderLog WHERE `OrderLog_Timestamp` BETWEEN DATE_SUB( CURDATE( ) ,INTERVAL 3 MONTH ) AND DATE_SUB( CURDATE( ) ,INTERVAL 0 MONTH )
                         </sql:query>
@@ -102,7 +105,7 @@
                         </table>
                     </c:when> 
                     <c:when test="${param.report == 'Yearly'}"> 
-                        <sql:query var="week" dataSource="jdbc/capstone">
+                        <sql:query var="week" dataSource="${eazyeatz}">
 
                             SELECT * FROM EazyEatz.OrderLog WHERE `OrderLog_Timestamp` >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
                         </sql:query>
