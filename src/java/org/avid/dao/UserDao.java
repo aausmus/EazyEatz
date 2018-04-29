@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.avid.model.DateTime;
 
-import org.avid.model.Inventory;
+import org.avid.model.InventoryItem;
 import org.avid.model.MenuItem;
 import org.avid.model.User;
 import org.avid.util.DbUtil;
@@ -126,13 +126,14 @@ public class UserDao {
 
         return user;
     }
-    public void addInventory(Inventory inventory) {
+    public void addInventory(InventoryItem item) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("insert into inventory(item,stock) values (?, ? )");
+                    .prepareStatement("insert into InventoryItem(InventoryItem_Name,InventoryItem_Quantity,InventoryItem_SingleUnitCost) values (?, ?, ? )");
             // Parameters start with 1
-            preparedStatement.setString(1, inventory.getItem());
-            preparedStatement.setInt(2, inventory.getStock());
+            preparedStatement.setString(1, item.getItem());
+            preparedStatement.setInt(2, item.getStock());
+            preparedStatement.setDouble(3, item.getCost());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -141,67 +142,73 @@ public class UserDao {
     }
     public void deleteInventory(int inventoryid) {
         try {
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from inventories where inventoryid=?");
+        	PreparedStatement preparedStatement = connection
+                    .prepareStatement("delete from MenuItemInventoryComposition where InventoryItem_ID=?");
             // Parameters start with 1
             preparedStatement.setInt(1, inventoryid);
             preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement1 = connection
+                    .prepareStatement("delete from InventoryItem where InventoryItem_ID=?");
+            // Parameters start with 1
+            preparedStatement1.setInt(1, inventoryid);
+            preparedStatement1.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void updateInventory(Inventory inventory) {
+    public void updateInventory(InventoryItem item) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update inventories set item=?, stock=?" +
-                            "where inventoryid=?");
+                    .prepareStatement("update InventoryItem set InventoryItem_Quantity=?, InventoryItem_SingleUnitCost=? where InventoryItem_ID=?");
             // Parameters start with 1
-            preparedStatement.setString(1, inventory.getItem());
-            preparedStatement.setInt(2, inventory.getStock());
-            preparedStatement.setInt(3, inventory.getInventoryid());
+            preparedStatement.setInt(1, item.getStock());
+            preparedStatement.setDouble(2, item.getCost());
+            preparedStatement.setInt(3, item.getInventoryid());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public List<Inventory> getAllInventories() {
-        List<Inventory> inventories = new ArrayList<Inventory>();
+    public List<InventoryItem> getAllInventoryItems() {
+        List<InventoryItem> inventoryItems = new ArrayList<InventoryItem>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from inventory");
+            ResultSet rs = statement.executeQuery("select * from InventoryItem");
             while (rs.next()) {
-                Inventory inventory = new Inventory();
-                inventory.setInventoryid(rs.getInt("inventoryid"));
-                inventory.setItem(rs.getString("item"));
-                inventory.setStock(rs.getInt("stock"));
-                inventories.add(inventory);
+                InventoryItem item = new InventoryItem();
+                item.setInventoryid(rs.getInt("InventoryItem_ID"));
+                item.setItem(rs.getString("InventoryItem_Name"));
+                item.setStock(rs.getInt("InventoryItem_Quantity"));
+                item.setCost(rs.getDouble("InventoryItem_SingleUnitCost"));
+                inventoryItems.add(item);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return inventories;
+        return inventoryItems;
     }
-    public Inventory getInventoriesById(int inventoryid) {
-        Inventory inventory = new Inventory();
+    public InventoryItem getInventoryById(int inventoryid) {
+        InventoryItem item = new InventoryItem();
         try {
             PreparedStatement preparedStatement = connection.
-                    prepareStatement("select * from inventories where inventoryid=?");
+                    prepareStatement("select * from InventoryItem where InventoryItem_ID=?");
             preparedStatement.setInt(1, inventoryid);
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
-                inventory.setInventoryid(rs.getInt("inventoryid"));
-                inventory.setItem(rs.getString("item"));
-                inventory.setStock(rs.getInt("stock"));
+                item.setInventoryid(rs.getInt("InventoryItem_ID"));
+                item.setItem(rs.getString("InventoryItem_Name"));
+                item.setStock(rs.getInt("InventoryItem_Quantity"));
+                item.setCost(rs.getDouble("InventoryItem_SingleUnitCost"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return inventory;
+        return item;
     }
     
     public String Validate(int pin) {

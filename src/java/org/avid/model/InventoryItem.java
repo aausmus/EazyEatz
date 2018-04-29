@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.avid.model;
 
-public class Inventory {
+public class InventoryItem {
 	private int inventoryid;
 	private int stock;
 	private String item;
+	private Double cost;
 	public int getInventoryid() {
         return inventoryid;
     }
@@ -18,6 +14,12 @@ public class Inventory {
 	public int getStock() {
         return stock;
     }
+	public Double getCost() {
+		return cost;
+	}
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
     public void setStock(int stock) {
         this.stock = stock;
     }
@@ -28,7 +30,7 @@ public class Inventory {
         this.item = item;
     }
     public String toString() {
-        return "Inventory [id= " + inventoryid + ", item= " + item + ", stock=" + stock + "]";
+        return "Inventory [id= " + inventoryid + ", item= " + item + ", stock=" + stock + ", cost= " + cost + "]";
     }
 }
 

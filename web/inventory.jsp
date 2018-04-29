@@ -1,10 +1,12 @@
 <%-- 
     Document   : inventory
     Created on : Apr 9, 2018, 7:55:13 PM
-    Author     : Andrew
+    Author     : Andrew FEAT. George
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,96 +50,56 @@
             return false;
             }
         }
-</script>
-</head>
+    </script>
+    </head>
 <body>
     <%@include file="WEB-INF/jspf/menu.jspf" %>
-<header>
-        <nav class="navbar navbar-default manager-navbar">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                 <!---   <a class="navbar-brand" href="manager.jsp">Management Console</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Manage Employees</a></li>
-                    <li><a href="#">Manage Inventory</a></li>
-                    <li><a href="#">Sales Functions</a></li>
-                    <li><a href="#">Manage Menu</a></li>
-                    <li><a href="#">Time Logging</a></li>
-                </ul> --->
-            </div>
-        </nav>
-        </header>    
-    
-    
+   
     
     <div id="mainLayOutTable">
-                <table>
-                  <tr>
-                      <!--- Top --->
-                      <td>
-                          <div id="inventoryEntryForm">
-                              <table>
-                                  <tr>
-                                  <h2>Inventory Entry Form</h2>
-                                  <form id="invenEntry" name="myForm" action="/action_page.php"
-                                   onsubmit="return validateForm()" method="post">
-                                    Item Name: <input type="text" name="iname"><br>
-                                    Item Quantity: <input type="text" name="iquantity"><br>
-                                    Item Description <input type="text" name="idesc"><br><br>
-                                    <input type="submit" value="Submit">
-                                    </form>
-                                  </tr>
-                              </table>
-                          </div>
+        <table>
+            <tr>
+                <!--- Top --->
+                <td>
+                    <div id="inventoryEntryForm">
+                    <form method="POST" action='InventoryController' name="frmAddInventory">
+                        Inventory ID : <input type="text" readonly="readonly" name="inventoryid"
+                            value="<c:out value="${inventoryItem.inventoryid}" />" /> <br />
+                        Item Stock : <input type="text" name="stock"
+                                value="<c:out value="${inventoryItem.stock}" />" /> <br />
+                        Item Cost : <input type="text" name="cost"
+                                value="<c:out value="${inventoryItem.cost}" />" /> <br />
+                        Item Name : <input type="text" name="item"
+                                value="<c:out value="${inventoryItem.item}" />" /> <br /> <input
+                                type="submit" value="Submit" />
+                    </form>
+                    </div>
                       </td>
-                  </tr>
-                  <tr>
-                      <!--- bottom --->
-                      <td>
-                          <div id="display">
-                              <h2>Current Inventory</h2>
-                              <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th data-breakpoints="xs">ID</th>
-                                            <th>Item Name</th>
-                                            <th data-breakpoints="xs">Quantity Count</th>
-                                            <th data-breakpoints="xs sm">Description</th>
-			
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr data-expanded="true">
-                                            <td>1</td>
-                                            <td>Burger Patties</td>
-                                            <td>100</td>
-                                            <td>100% USDA All Beef Paties</td>
-			
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Tomatoes</td>
-                                            <td>25</td>
-                                            <td>California Vine Ripe Tomatoes</td>
-			
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Idaho Gold French Fries</td>
-                                            <td>100</td>
-                                            <td>4 Cases containing 25 bags a piece </td>
-			
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Angus Steak Patties</td>
-                                            <td>50</td>
-                                            <td>Aged Angus Steak Patties</td>
-                                        </tr>
-		
-                                    </tbody>
-                                </table>
+            </tr>
+            <tr>
+                <!--- bottom --->
+                <td>
+            <div id="display">
+                <h2>Current Inventory</h2>
+                <table border=1>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Stock</th>
+                <th>Cost</th>
+                <th colspan=2>Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${inventoryItems}" var="inventoryItem">
+                <tr>
+                    <td><c:out value="${inventoryItem.item}" /></td>
+                    <td><c:out value="${inventoryItem.stock}" /></td>
+                    <td><c:out value="${inventoryItem.cost}" /></td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
                               
                           </div>
                       </td>
@@ -148,4 +110,3 @@
 
 </body>
 </html>
-

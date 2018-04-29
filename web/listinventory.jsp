@@ -1,7 +1,7 @@
 <%-- 
     Document   : listinventory
     Created on : Apr 9, 2018, 7:57:39 PM
-    Author     : Andrew
+    Author     : Andrew FEAT. George
 --%>
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
@@ -20,16 +20,18 @@
             <tr>
                 <th>Item</th>
                 <th>Stock</th>
+                <th>Cost</th>
                 <th colspan=2>Action</th> 
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${inventories}" var="inventory">
+            <c:forEach items="${inventoryItems}" var="inventoryItem">
                 <tr>
-                    <td><c:out value="${inventory.item}" /></td>
-                    <td><c:out value="${inventory.stock}" /></td>
-                    <td><a href="InventoryController?action=edit&inventoryid=<c:out value="${inventory.inventoryid}"/>">Update</a></td>
-                    <td><a href="InventoryController?action=delete&inventoryid=<c:out value="${inventory.inventoryid}"/>">Delete</a></td>
+                    <td><c:out value="${inventoryItem.item}" /></td>
+                    <td><c:out value="${inventoryItem.stock}" /></td>
+                    <td><c:out value="${inventoryItem.cost}" /></td>
+                    <td><a href="InventoryController?action=edit&inventoryid=<c:out value="${inventoryItem.inventoryid}"/>">Update</a></td>
+                    <td><a href="InventoryController?action=delete&inventoryid=<c:out value="${inventoryItem.inventoryid}"/>">Delete</a></td>
                 </tr>
             </c:forEach>
         </tbody>
@@ -39,3 +41,4 @@
     <p><a href="UserController?action=listUser">List User</a></p>
 </body>
 </html>
+
