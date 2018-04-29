@@ -127,7 +127,7 @@
                             Manage Employees</button>
                     </td>
                     <td>
-                      <button onclick="location.href='http://localhost:8080/nbproject/inventory.jsp'" type="button">Manage Inventory</button>
+                      <button onclick="location.href='InventoryController?=listInventory'" type="button">Manage Inventory</button>
                     </td>
                   </tr>
                   <tr>
